@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Install Docker'){
+            steps {
+                sudo curl https://get.docker.com | sudo bash
+            } 
+        }
+        stage('Add Jenkins'){
+            steps {
+                sudo usermod -aG docker jenkins }
+        }
+
+        stage('Reboot'){
+            steps {
+                sudo reboot }
+        }
+
+        stage('Add Jenkins'){
+            steps {
+                sudo usermod -aG docker jenkins }
+        }
+
+        stage('deploy'){
+            steps {
+                sh ./Task1/deploy.sh }
+        }
+
+    }
+}
